@@ -4,9 +4,9 @@ A custom bottom navigation bar with box animation. This is inspired from some of
 ## Demo
 
 <!-- ![](./example/demo1.gif) -->
-<img src="./example/demo1.gif" width="40" />
+<img src="./example/demo1.gif" width="200" />
 
-<img src="./example/demo2.gif" width="40" />
+<img src="./example/demo2.gif" width="200" />
 
 <!-- ![](./example/demo2.gif) -->
 
