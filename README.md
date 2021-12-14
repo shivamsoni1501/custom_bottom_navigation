@@ -3,10 +3,12 @@ A custom bottom navigation bar with box animation. This is inspired from some of
 
 ## Demo
 
-![](./example/demo1.gif)
+<!-- ![](./example/demo1.gif) -->
+<img src="./example/demo1.gif" width="40" />
 
+<img src="./example/demo2.gif" width="40" />
 
-![](./example/demo2.gif)
+<!-- ![](./example/demo2.gif) -->
 
 ## Usage
 
@@ -38,23 +40,23 @@ Then, add the `CustomBottomBoxBar()` in the `bottomNavigationBar:` field of Scaf
 ## Properties
 You can custemize most of the properties like:
 
-# Navigation bar Height
+### Navigation bar Height
 you can provide the height of navigation bar by `height` parameter.
 
-# selected Item Box Color
+### selected Item Box Color
 you can provide the Color of selected item box by `selectedItemBoxColor` parameter.
 
-# unselected Item Box Color
+### unselected Item Box Color
 you can provide the Color of unselected item box by `unselectedItemBoxColor` parameter.
 
-# selected Item Color
+### selected Item Color
 you can provide the Color of selected item by `selectedItemColor` parameter.
 
-# unselected Item Color
+### unselected Item Color
 you can provide the Color of selected item by `unselectedItemColor` parameter.
 
-# Animation Duration
+### Animation Duration
 you can provide the animation duration by `duration` parameter.
 
-# Inicial Index
+### Inicial Index
 you can provide the incial index by `inicialIndex` parameter.
