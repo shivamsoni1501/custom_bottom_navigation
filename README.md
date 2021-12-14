@@ -20,9 +20,9 @@ Then, add the `CustomBottomBoxBar()` in the `bottomNavigationBar:` field of Scaf
     Scaffold(
       bottomNavigationBar: CustomBottomBoxBar(
         inicialIndex: selectedPageIndex,
-        onIndexChange: (int insex) {
+        onIndexChange: (int index) {
           setState(() {
-            selectedPageIndex = val;
+            selectedPageIndex = index;
           });
         },
         items: [
