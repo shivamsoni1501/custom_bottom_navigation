@@ -1,27 +1,34 @@
 library custom_bottom_navigation;
 
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class CustomBottomBoxBar extends StatefulWidget {
   final double height;
-  final List<Widget> items;
+  final List<CustomBottomBoxBarItem> items;
   final double barRadius;
-  final List<Text> itemText;
+  final double elevation;
+  final int duration;
+  final Color selectedItemColor;
+  final Color unselectedItemColor;
   final Color selectedItemBoxColor;
   final Color unselectedItemBoxColor;
-  final Function(int) selectedIndex;
+  final Function(int) onIndexChange;
   final int inicialIndex;
 
-  CustomBottomBoxBar(
-      {this.height = 70,
+  const CustomBottomBoxBar(
+      {Key? key,
+      this.height = 70.0,
       this.inicialIndex = 0,
-      this.barRadius = 20.0,
+      this.barRadius = 0.0,
+      this.elevation = 10.0,
+      this.duration = 500,
       required this.items,
-      required this.itemText,
-      required this.selectedIndex,
-      this.selectedItemBoxColor = Colors.purpleAccent,
-      this.unselectedItemBoxColor = Colors.deepPurpleAccent});
+      required this.onIndexChange,
+      this.selectedItemBoxColor = Colors.black,
+      this.unselectedItemBoxColor = Colors.white,
+      this.unselectedItemColor = Colors.black,
+      this.selectedItemColor = Colors.white})
+      : super(key: key);
 
   @override
   _CustomBottomBoxBarState createState() => _CustomBottomBoxBarState();
@@ -43,33 +50,33 @@ class _CustomBottomBoxBarState extends State<CustomBottomBoxBar> {
         color: widget.unselectedItemBoxColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.shade200,
-            offset: const Offset(0, -5),
-            spreadRadius: 5,
-            blurRadius: 10,
+            color: Colors.black54,
+            blurRadius: widget.elevation,
           )
         ],
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(widget.barRadius),
         ),
       ),
+      height: widget.height,
       clipBehavior: Clip.antiAlias,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        mainAxisSize: MainAxisSize.max,
         children: List.generate(
           widget.items.length,
           (index) => Expanded(
-            child: BarItem(
+            child: _BarItem(
               index: index,
               height: widget.height,
+              duration: widget.duration,
               item: widget.items[index],
-              text: widget.itemText[index],
               selectedC: widget.selectedItemBoxColor,
               unselectedC: widget.unselectedItemBoxColor,
+              selectedItemColor: widget.selectedItemColor,
+              unselectedItemColor: widget.unselectedItemColor,
               selectedIndex: (value) {
                 selectedIndex = value;
-                widget.selectedIndex(selectedIndex);
+                widget.onIndexChange(selectedIndex);
                 setState(() {});
               },
               selectedIndexC: () => selectedIndex,
@@ -81,43 +88,52 @@ class _CustomBottomBoxBarState extends State<CustomBottomBoxBar> {
   }
 }
 
-class BarItem extends StatefulWidget {
+class CustomBottomBoxBarItem {
+  final IconData icondata;
+  final Text text;
+  CustomBottomBoxBarItem(this.icondata, this.text);
+}
+
+class _BarItem extends StatefulWidget {
   final int index;
   final double height;
-  final Widget item;
-  final Text text;
+  final CustomBottomBoxBarItem item;
   final Color selectedC;
   final Color unselectedC;
+  final int duration;
+  final Color selectedItemColor;
+  final Color unselectedItemColor;
 
   final Function(int) selectedIndex;
   final Function selectedIndexC;
 
-  const BarItem(
-      {Key? key,
-      required this.index,
+  const _BarItem(
+      {required this.index,
       required this.height,
       required this.item,
-      required this.text,
+      required this.duration,
       required this.selectedC,
       required this.unselectedC,
       required this.selectedIndex,
-      required this.selectedIndexC})
-      : super(key: key);
+      required this.selectedIndexC,
+      required this.selectedItemColor,
+      required this.unselectedItemColor});
 
   @override
   _BarItemState createState() => _BarItemState();
 }
 
-class _BarItemState extends State<BarItem> with SingleTickerProviderStateMixin {
+class _BarItemState extends State<_BarItem>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation _animation;
-  double PI = pi;
+  double PI = 3.14;
 
   @override
   void initState() {
     super.initState();
-    _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 700));
+    _controller = AnimationController(
+        vsync: this, duration: Duration(milliseconds: widget.duration));
     _animation = CurvedAnimation(
         parent: _controller,
         curve: Curves.elasticOut,
@@ -170,8 +186,9 @@ class _BarItemState extends State<BarItem> with SingleTickerProviderStateMixin {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        widget.item,
-                        FittedBox(child: widget.text),
+                        Icon(widget.item.icondata,
+                            color: widget.unselectedItemColor),
+                        FittedBox(child: widget.item.text),
                       ],
                     ),
                   ),
@@ -191,7 +208,9 @@ class _BarItemState extends State<BarItem> with SingleTickerProviderStateMixin {
                         color: widget.selectedC,
                         border: Border.all(color: widget.selectedC)),
                     child: Transform.scale(
-                        scale: 1 + .3 * _animation.value, child: widget.item),
+                        scale: 1 + .3 * _animation.value,
+                        child: Icon(widget.item.icondata,
+                            color: widget.selectedItemColor)),
                   ),
                 ),
               ),

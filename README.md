@@ -1,39 +1,60 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+A custom bottom navigation bar with box animation. This is inspired from some of the erlier designs, but in a more simplified and yet exiting way.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+## Demo
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+![](./example/demo1.gif)
 
-## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+![](./example/demo2.gif)
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+To use the package, first, add the custom_bottom_navigation as the dependency in your pubspec.yaml file.
+
+Then, add the `CustomBottomBoxBar()` in the `bottomNavigationBar:` field of Scaffold. You need to provide two fields, `items`(List of CustomBottomBaxBarItem) and `onIndexChange` method. See the example below.
 
 ```dart
-const like = 'sample';
+    Scaffold(
+      bottomNavigationBar: CustomBottomBoxBar(
+        inicialIndex: selectedPageIndex,
+        onIndexChange: (int insex) {
+          setState(() {
+            selectedPageIndex = val;
+          });
+        },
+        items: [
+          CustomBottomBoxBarItem(
+              Icons.home_filled,
+              Text('Home')),
+          CustomBottomBoxBarItem(
+              Icons.person,
+              Text('Profile')),
+        ],
+      ),
+    );
 ```
 
-## Additional information
+## Properties
+You can custemize most of the properties like:
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+# Navigation bar Height
+you can provide the height of navigation bar by `height` parameter.
+
+# selected Item Box Color
+you can provide the Color of selected item box by `selectedItemBoxColor` parameter.
+
+# unselected Item Box Color
+you can provide the Color of unselected item box by `unselectedItemBoxColor` parameter.
+
+# selected Item Color
+you can provide the Color of selected item by `selectedItemColor` parameter.
+
+# unselected Item Color
+you can provide the Color of selected item by `unselectedItemColor` parameter.
+
+# Animation Duration
+you can provide the animation duration by `duration` parameter.
+
+# Inicial Index
+you can provide the incial index by `inicialIndex` parameter.

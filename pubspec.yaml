@@ -1,7 +1,7 @@
 name: custom_bottom_navigation
 description: A Custom bottom navigation bar with box animation.
 version: 0.0.1
-homepage:
+homepage: https://github.com/shivamsoni1501/custom_bottom_navigation
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
