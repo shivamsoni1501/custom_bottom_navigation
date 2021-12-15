@@ -1,6 +1,6 @@
 name: custom_bottom_navigation
 description: A Custom bottom navigation bar with box animation. This is the simplified and smoother version of some of the earlier designs. You can use it just as a regular material bottom navigation bar, but with more customization and animation.
-version: 0.0.1
+version: 0.0.1+1
 homepage: https://github.com/shivamsoni1501/custom_bottom_navigation
 
 environment:

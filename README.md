@@ -12,9 +12,9 @@ A custom bottom navigation bar with box animation. This is inspired from some of
 
 ## Usage
 
-To use the package, first, add the custom_bottom_navigation as the dependency in your pubspec.yaml file.
+To use the package, first, add the `custom_bottom_navigation` as the dependency in your `pubspec.yaml` file.
 
-Then, add the `CustomBottomBoxBar()` in the `bottomNavigationBar:` field of Scaffold. You need to provide two fields, `items`(List of CustomBottomBaxBarItem) and `onIndexChange` method. See the example below.
+Then, add the `CustomBottomBoxBar()` in the `bottomNavigationBar:` field of `Scaffold()`. You need to provide two fields, `items:`(List of CustomBottomBaxBarItem) and `onIndexChange:` method. See the example below.
 
 ```dart
     Scaffold(
