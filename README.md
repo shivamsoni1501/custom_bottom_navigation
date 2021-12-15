@@ -1,12 +1,12 @@
 
-A custom bottom navigation bar with box animation. This is inspired from some of the erlier designs, but in a more simplified and yet exiting way.
+A custom bottom navigation bar with box animation. This is inspired from some of the earlier designs, but in a more simplified and yet exiting way.
 
 ## Demo
 
 <!-- ![](./example/demo1.gif) -->
-<img src="./example/demo1.gif" width="200" />
+<img src="https://github.com/shivamsoni1501/custom_bottom_navigation/blob/master/example/demo1.gif" width="200" />
 
-<img src="./example/demo2.gif" width="200" />
+<img src="https://github.com/shivamsoni1501/custom_bottom_navigation/blob/master/example/demo2.gif" width="200" />
 
 <!-- ![](./example/demo2.gif) -->
 
