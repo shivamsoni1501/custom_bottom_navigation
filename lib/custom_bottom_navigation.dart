@@ -1,7 +1,11 @@
 library custom_bottom_navigation;
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
+// Main class of Custom Bottom Box Bar.
+// Two field are reqired, items and onIndexChange callback.
 class CustomBottomBoxBar extends StatefulWidget {
   final double height;
   final List<CustomBottomBoxBarItem> items;
@@ -35,11 +39,14 @@ class CustomBottomBoxBar extends StatefulWidget {
 }
 
 class _CustomBottomBoxBarState extends State<CustomBottomBoxBar> {
+  // keeps track of selected index.
   late int selectedIndex;
 
   @override
   void initState() {
     super.initState();
+
+    // setting to inicial positions as specified.
     selectedIndex = widget.inicialIndex;
   }
 
@@ -88,12 +95,14 @@ class _CustomBottomBoxBarState extends State<CustomBottomBoxBar> {
   }
 }
 
+// dummy class for taking iconData and text for each item box.
 class CustomBottomBoxBarItem {
   final IconData icondata;
   final Text text;
   CustomBottomBoxBarItem(this.icondata, this.text);
 }
 
+// all the animation and tap events hadle seperatly in each BarItem class.
 class _BarItem extends StatefulWidget {
   final int index;
   final double height;
@@ -125,13 +134,15 @@ class _BarItem extends StatefulWidget {
 
 class _BarItemState extends State<_BarItem>
     with SingleTickerProviderStateMixin {
+  // declaring controller and animation for boxitem.
   late AnimationController _controller;
   late Animation _animation;
-  double PI = 3.14;
 
   @override
   void initState() {
     super.initState();
+
+    //inicializing controller
     _controller = AnimationController(
         vsync: this, duration: Duration(milliseconds: widget.duration));
     _animation = CurvedAnimation(
@@ -141,7 +152,10 @@ class _BarItemState extends State<_BarItem>
     _controller.addListener(() {
       setState(() {});
     });
+
+    //checking if current index is the selected index
     if (widget.selectedIndexC() == widget.index) {
+      //if selected then forwading the animation.
       _controller.forward();
     }
   }
@@ -154,13 +168,17 @@ class _BarItemState extends State<_BarItem>
 
   @override
   Widget build(BuildContext context) {
+    //checking if current index is no more selected
     if (_controller.isCompleted) {
       if (widget.selectedIndexC() != widget.index) {
+        // if no more selected then revesing the animation.
         _controller.reverse();
       }
     }
+
     return GestureDetector(
       onTap: () {
+        // when ever user tap any box item, forwading the animation
         widget.selectedIndex(widget.index);
         _controller.forward();
       },
@@ -169,19 +187,19 @@ class _BarItemState extends State<_BarItem>
         child: Stack(
           fit: StackFit.expand,
           children: [
+            //defining animation for unselected side
             Transform.translate(
               offset: Offset(0, (widget.height) * _animation.value),
               child: Transform(
                 alignment: Alignment.topCenter,
                 transform: Matrix4.identity()
                   ..setEntry(3, 2, .001)
-                  ..rotateX(PI / 2 * (_animation.value)),
+                  ..rotateX(pi / 2 * (_animation.value)),
                 child: Opacity(
                   opacity: .9,
                   child: Container(
                     decoration: BoxDecoration(
                       color: widget.unselectedC,
-                      // border: Border.all(color: widget.selectedC)
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -196,13 +214,14 @@ class _BarItemState extends State<_BarItem>
               ),
             ),
             if (_animation.value >= 0)
+              // defining animation for selected side.
               Transform.translate(
                 offset: Offset(0, (-widget.height) * (1 - _animation.value)),
                 child: Transform(
                   alignment: Alignment.bottomCenter,
                   transform: Matrix4.identity()
                     ..setEntry(3, 2, .001)
-                    ..rotateX(-(PI / 2) * (1 - _animation.value)),
+                    ..rotateX(-(pi / 2) * (1 - _animation.value)),
                   child: Container(
                     decoration: BoxDecoration(
                         color: widget.selectedC,
